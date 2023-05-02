@@ -29,4 +29,7 @@ class Category
 		print_r($this->listProducts);
 		echo "<pre/>";
 	}
+	public function showFilters() {
+		echo 'БЕБЕБЕ';
+	}
 }

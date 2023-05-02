@@ -1,6 +1,4 @@
 <?php
-
-namespace ListCategory;
 /** Список категорий */
 class ListCategory
 {
@@ -34,11 +32,10 @@ class ListCategory
 		}
 		echo "</ul>";
 	}
-	public function showData($d):void {
-		echo "$d";
+	/** Действие при нажатии на категорию */
+	public function showData($categoryName):void {
+		
+		echo "$categoryName";
 	}
-	
-	
 }
-$listCategory = new \ListCategory\ListCategory();
 

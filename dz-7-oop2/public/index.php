@@ -1,9 +1,11 @@
 <?php
 include_once '../src/ListCategory/ListCategory.php';
+$listCategory = new ListCategory();
+
 include_once '../src/Category/Category.php';
 include_once '../src/Category/MonitorCategory.php';
 include_once '../src/Category/PhoneCategory.php';
-include_once './handler.php';
+
 
 $Phones = new PhoneCategory("Phones", $listCategory);
 $Monitors = new MonitorCategory("Monitors", $listCategory);
@@ -21,7 +23,7 @@ $Monitors->setListProducts([
 		  ["Name" => "34WP65C-B", "Price" => 35550, "Description" => "Monitor", "Brand" => "LG", "Diagonal" => 34, "Frequency" => 160],
 ]);
 
-$listCategory->showCategories();
+include_once './handler.php';
 ?>
 
 
@@ -35,14 +37,26 @@ $listCategory->showCategories();
 	<title>Document</title>
 	<style>
 		.category {
-			cursor: pointer;
+			 cursor: pointer;
+			 list-style-type: none;
+			 line-height: 30px;
+			 font-size: 18px;
+		    font-weight: 600;
+			 width: 200px;
+			 text-align: center;
+		}
+		.active {
+			 background: red;
+			 color: white;
 		}
 	</style>
 </head>
 <body>
 
 <?php
-
+	$listCategory->showCategories();
+	
+	
 
 
 ?>
@@ -74,19 +88,20 @@ $listCategory->showCategories();
 		document.querySelector("body").innerHTML += `<?php $Monitors->showProducts(); ?>`;
 	}
 	
-	const categoryClick = document.querySelectorAll('.category')
-	categoryClick.forEach(item => {
-		item.classList.remove('selected')
-	});
+	const li = document.querySelectorAll('.category')
 	
-	for (let elem of categoryClick) {
-		elem.addEventListener('click', (e) => {
-			e.target.classList.add('selected')
+	document.addEventListener('click', (e) => {
+		if(e.target.classList.contains('category')) {
+			li.forEach(item => item.classList.remove('active'))
+			e.target.classList.add('active')
 			let catName = e.target.id;
 			ajaxRequest({"category": catName});
-		});
+		}
 		
-	}
+	})
+	
+	
+	
 
 	function ajaxRequest(objectValues) {
 		let json = JSON.stringify(objectValues)
