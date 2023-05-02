@@ -6,11 +6,10 @@ class Category
 	public array $listProducts;
 	protected array $filters;
 	
-	function __construct(string $_name, object $_list, $_price = "Price")
+	function __construct(string $_name, $_price = "Price")
 	{
 		$this->name = $_name;
 		$this->filters[] = $_price;
-		$_list->selfAddition($this); // добавляем текущий объект в список категорий
 	}
 	
 	public function getName():string {
@@ -23,13 +22,39 @@ class Category
 		$this->listProducts = $listProducts;
 	}
 	
-	public function showProducts():void
+	public function getFilters():array
 	{
-		echo "<pre>";
-		print_r($this->listProducts);
-		echo "<pre/>";
+		return $this->filters;
 	}
+
 	public function showFilters() {
-		echo 'БЕБЕБЕ';
+            echo "</form>";
+            echo "<form action='' method='post'>";
+            echo "<input type='hidden' name='cat' value='$this->name'>";
+		foreach ($this->filters as $item) {
+            echo "<span class='filter__name'><b>$item</b></span>";
+            $placeholder_list = [];
+            foreach ($this->listProducts as $product) {
+                foreach ($product as $key=>$value) {
+                    if ($item == $key) {
+                        $placeholder_list[] = $value;
+                    }
+                }
+            }
+            sort($placeholder_list);
+            $first_value = $placeholder_list[0];
+            $last_value = $placeholder_list[array_key_last($placeholder_list)];
+            echo "<input class='filter__input' type='text' name='$item' placeholder='min: $first_value, max: $last_value'>";
+
+        }
+        echo "<button type='submit' class='apply-btn'>Применить</button>";
+        echo "</form>";
+
 	}
+
+    public function applyFilters($filters) {
+        echo "<pre>";
+        print_r($filters);
+        echo "</pre>";
+    }
 }
