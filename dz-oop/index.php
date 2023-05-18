@@ -1,8 +1,6 @@
 <?php
 	include_once "./src/Product/Product.php";
-	include_once "./function.php";
 	include_once "./src/JsonFile/JsonFile.php";
-	include_once "./function.php";
 ?>
 <!doctype html>
 <html lang="ru">
@@ -15,24 +13,34 @@
 </head>
 <body>
 <form action="" method="post">
-	<input type="text" placeholder="Название" name="name">
-	<input type="text" placeholder="Цена" name="price">
-	<button type="submit" name="add" onclick="addProd()">Добавить</button>
+	<input type="text" placeholder="Название" name="name" id="prod-name">
+	<input type="text" placeholder="Цена" name="price" id="prod-price">
+	<button type="submit" name="add" onclick="addProduct()">Добавить</button>
 </form>
+
+
 <?php
-	JsonFile::readInFile();
-	
-	function addProduct($products_json):void {
-		$products_object = new Product($_POST['name'], $_POST['price']);
-		JsonFile::saveInFile($products_object);
-	}
+	Product::getProduct();
+
+	echo "<br>";
 
 ?>
 
-<script>
-	const addProd = () => {
-		document.querySelector('body').innerHTML += "<?php addProduct($products_json);?>"
+<form action="index.php" method="post">
+	<input type="text" placeholder="Поиск продукта" name="find-name" id="find-name">
+	<button type="submit" name="find-btn">Найти</button>
+</form>
+
+<?php
+    include_once "./handler.php";
+	if (isset($_POST["find-name"])) {
+		$product = Product::searchByName(JsonFile::readInFile(), $_POST["find-name"]);
+		echo "<pre>";
+		print_r($product);
+		echo "</pre>";
 	}
-</script>
+?>
+<div style="color: teal" id="result"></div>
+<script src="./js/script.js"></script>
 </body>
 </html>

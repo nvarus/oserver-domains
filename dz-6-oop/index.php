@@ -102,7 +102,6 @@ include_once "./handler.php";
 				}
 			}
 		}
-
 	}
 </script>
 
