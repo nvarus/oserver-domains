@@ -1,7 +1,6 @@
-@extends('layoute');
+@extends('layout')
 
-
-@section("main_content");
+@section("main_content")
     <p>
         Hello World
     </p>

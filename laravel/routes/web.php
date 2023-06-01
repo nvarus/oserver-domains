@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +14,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('homepage');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', "App\Http\Controllers\MainController@login");
+    Route::post('/login', "App\Http\Controllers\AuthController@postSignin");
 });
+Route::get('/', "App\Http\Controllers\MainController@homepage");
 
-Route::get('/about/{id}/{name}/{age}', function ($id, $name, $age) {
-    return 'id: ' . $id . 'name: ' . $name . 'age: ' . $age;
-});
+Route::get('/about', "App\Http\Controllers\MainController@about");
+
+Route::get('/form', "App\Http\Controllers\MainController@form");
+
+Route::post('/form/check', "App\Http\Controllers\MainController@form_check");
+
+

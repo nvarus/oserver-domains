@@ -7,16 +7,18 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body class="bg-dark">
+<body class="bg-dark ">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 p-md-4 mb-3">
         <h5 class="my-0 mr-md-auto font-weight-normal">FOG</h5>
         <nav>
             <a class="p-2 text-white" href="/">Главная</a>
-            <a class="p-2 text-white" href="/">Про нас</a>
+            <a class="p-2 text-white" href="/about">Про нас</a>
         </nav>
-        <a class="p-2 text-white" href="/">Отзывы</a>
+        <a class="p-2 text-white" href="/form">Отзывы</a>
+
 
     </div>
-@yield("main_content");
+    @yield("main_content")
+
 </body>
 </html>
